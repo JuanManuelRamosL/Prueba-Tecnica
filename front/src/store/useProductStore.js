@@ -23,7 +23,34 @@ const useProductStore = create((set) => ({
       console.error("Error creating product:", error);
       return null;
     }
+  },
+  
+editProduct: async (id, updatedProduct) => {
+  try {
+    const response = await axios.put(`http://localhost:3001/products/${id}`, updatedProduct);
+    set((state) => ({
+      products: state.products.map((product) =>
+        product.id === id ? response.data : product
+      ),
+    }));
+    return response.data;
+  } catch (error) {
+    console.error("Error updating product:", error);
+    return null;
   }
+},
+deleteProduct: async (id) => {
+  try {
+    await axios.delete(`http://localhost:3001/products/${id}`);
+    set((state) => ({
+      products: state.products.filter((product) => product.id !== id),
+    }));
+  } catch (error) {
+    console.error("Error deleting product:", error);
+  }
+},
+
 }));
+
 
 export default useProductStore;

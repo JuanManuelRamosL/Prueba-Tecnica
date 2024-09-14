@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getProduct } from "../controllers/getProduct.js";
-import { createProduct } from "../controllers/createProject.js";
+import { createProduct } from "../controllers/createProduct.js";
 import { getProductById } from "../controllers/getProductID.js";
 import { deleteProductById } from "../controllers/deleteProducts.js";
 import { putProductById } from "../controllers/putProducts.js";

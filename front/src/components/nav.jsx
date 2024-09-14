@@ -15,8 +15,13 @@ export default function Nav() {
           </Link>
         </li>
         <li>
-          <Link href="/administrar">
-            <p className="text-white hover:text-gray-400">Mis Productos</p>
+          <Link href="/crear">
+            <p className="text-white hover:text-gray-400">Crear Productos</p>
+          </Link>
+        </li>
+        <li>
+          <Link href="/editar">
+            <p className="text-white hover:text-gray-400">Editar Productos</p>
           </Link>
         </li>
       </ul>
