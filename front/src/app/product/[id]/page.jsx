@@ -113,7 +113,7 @@ const ProductDetail = () => {
       </Link>
 
       <div className="flex flex-wrap gap-6 mt-6">
-        <div className="flex-1 flex justify-center border border-gray-300 rounded-lg p-2">
+        <div className="flex-1 flex justify-center border border-gray-300 rounded-lg p-2 bg-white">
           <img
             src={selectedProduct.image}
             alt={selectedProduct.name}
