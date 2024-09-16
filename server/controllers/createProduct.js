@@ -16,6 +16,10 @@ export const createProduct = async (req, res) => {
     return res.status(400).json({ error: 'La descripción es requerida y debe tener al menos 10 caracteres.' });
   }
 
+  if (!image || image.length < 10) {
+    return res.status(400).json({ error: 'La imagen es requerida.' });
+  }
+
   try {
     // Crear el producto si las validaciones son correctas
     const newProduct = await Product.create({

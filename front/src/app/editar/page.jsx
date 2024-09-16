@@ -5,7 +5,8 @@ import React, { useEffect } from "react";
 import useProductStore from "@/store/useProductStore";
 
 export default function Editar() {
-  const { products, fetchProducts, deleteProduct } = useProductStore();
+  const { products, fetchProducts, deleteProduct, fetchProductById } =
+    useProductStore();
   const router = useRouter(); // Mantén el uso del router
 
   useEffect(() => {
@@ -20,7 +21,8 @@ export default function Editar() {
   };
 
   const handleEdit = (id) => {
-    router.push(`/edit-product/${id}`); // Redirigir a la página de edición con el ID del producto
+    router.push(`/editar/${id}`); // Redirigir a la página de edición con el ID del producto
+    fetchProductById(id);
   };
 
   return (

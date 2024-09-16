@@ -1,14 +1,28 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const useProductStore = create((set) => ({
+const useProductStore = create((set,get) => ({
   products: [],
+  filteredProducts: [],
+  cart: [],
+  selectedProduct: null,
+  apoyo:false,
+  setApoyo: (value) => set({ apoyo: value }),
   fetchProducts: async () => {
     try {
       const response = await axios.get('http://localhost:3001/products'); // Cambia esta URL según corresponda
       set({ products: response.data }); // Accede a los datos de la respuesta con `response.data`
     } catch (error) {
       console.error("Error fetching products:", error);
+    }
+  },
+
+  fetchProductById: async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/products/${id}`);
+      set({ selectedProduct: response.data }); // Actualiza el estado con el producto seleccionado
+    } catch (error) {
+      console.error("Error fetching product by ID:", error);
     }
   },
 
@@ -49,7 +63,41 @@ deleteProduct: async (id) => {
     console.error("Error deleting product:", error);
   }
 },
+setSearchTerm: (term) => {
+  const { products } = get();
+  set({ searchTerm: term });
 
+  if (term) {
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(term.toLowerCase())
+    );
+    set({ filteredProducts: filtered }); // Actualiza los productos filtrados
+  } else {
+    set({ filteredProducts: products }); // Si no hay búsqueda, muestra todos los productos
+  }
+},
+addToCart: (product) => {
+  const { cart } = get();
+  const isProductInCart = cart.find((item) => item.id === product.id);
+  if (!isProductInCart) {
+    set({ cart: [...cart, { ...product, quantity: 1 }] });
+  } else {
+    set({
+      cart: cart.map((item) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      ),
+    });
+  }
+},
+removeFromCart: (id) => {
+  const { cart } = get();
+  set({
+    cart: cart.filter((item) => item.id !== id),
+  });
+},
+clearCart: () => {
+  set({ cart: [] });
+},
 }));
 
 
