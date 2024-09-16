@@ -54,13 +54,6 @@ const ProductCard = ({ product }) => {
           className="w-full max-w-xs bg-blue-600 text-white py-3 px-5 rounded-lg text-lg font-bold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Comprar
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // Prevenir que el click en el botón dispare la redirección
-          }}
-          className="w-full max-w-xs flex items-center justify-center"
-        >
           <svg
             width="40"
             height="40"

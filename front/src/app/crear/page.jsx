@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import useProductStore from "@/store/useProductStore";
+import ListProduct from "@/components/listProduct";
 
 export default function CreateProductForm() {
   const { createProduct, products } = useProductStore();
@@ -83,9 +84,9 @@ export default function CreateProductForm() {
       </form>
 
       <h2 className="text-xl font-bold mt-8">Productos Actuales</h2>
-      <ul>
+      <ul className="space-y-4">
         {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
+          <ListProduct product={product}></ListProduct>
         ))}
       </ul>
     </div>

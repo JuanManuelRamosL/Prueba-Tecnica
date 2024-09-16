@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import useProductStore from "../../../store/useProductStore"; // Importa tu store de Zustand
 import { useParams, useRouter } from "next/navigation";
-
+import Link from "next/link";
 const EditProductForm = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -14,7 +14,6 @@ const EditProductForm = () => {
     description: "",
     image: "",
   });
-  console.log(id);
   // Cargar los productos solo una vez cuando el componente se monta
   useEffect(() => {
     fetchProducts();
@@ -61,7 +60,7 @@ const EditProductForm = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Editar Producto</h1>
-
+      <Link href="/editar">volver</Link>
       {/* Grid layout con disposición para responsive */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Formulario: se muestra primero en mobile */}
