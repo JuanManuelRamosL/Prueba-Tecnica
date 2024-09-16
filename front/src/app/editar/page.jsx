@@ -58,7 +58,7 @@ export default function Editar() {
   };
 
   return (
-    <div className="p-2 md:p-4">
+    <div className="p-2 md:p-4 mt-[60px]">
       <h1 className="text-2xl font-bold mb-6 text-center">Editar Productos</h1>
       <div className="flex flex-col items-center gap-8 md:gap-6">
         {currentProducts.length === 0 ? (
