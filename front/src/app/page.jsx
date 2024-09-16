@@ -4,13 +4,16 @@ import React, { useEffect, useState } from "react";
 import useProductStore from "@/store/useProductStore";
 import ProductCard from "@/components/cardProduct";
 import Pagination from "@/components/pagination";
+import SuspenseCard from "@/components/suspense";
 
 export default function Home() {
   const { products, fetchProducts, filteredProducts, apoyo, setApoyo } =
     useProductStore();
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  // Definimos cuántos productos mostrar por página
+  const productsPerPage = 10;
 
+  // useEffect para cargar los productos
   useEffect(() => {
     if (products.length < 1 || apoyo === true) {
       fetchProducts();
@@ -18,6 +21,7 @@ export default function Home() {
     }
   }, [fetchProducts, products]);
 
+  // Determina si mostrar productos filtrados o todos los productos
   const productsToShow =
     filteredProducts.length > 0 ? filteredProducts : products;
 
@@ -46,15 +50,7 @@ export default function Home() {
       <h1 className="text-2xl font-bold mb-6 text-center">Productos</h1>
       <div className="flex flex-col items-center gap-8 md:gap-6">
         {currentProducts.length === 0 ? (
-          <div className="w-full max-w-lg p-4 border border-gray-300 rounded-lg mb-5 animate-pulse">
-            <div className="flex flex-col items-center">
-              <div className="w-full h-40 bg-gray-300 rounded mb-4"></div>
-              <div className="w-3/4 h-6 bg-gray-300 rounded mb-2"></div>
-              <div className="w-1/2 h-6 bg-gray-300 rounded mb-4"></div>
-              <div className="w-5/6 h-4 bg-gray-200 rounded mb-2"></div>
-              <div className="w-5/6 h-4 bg-gray-200 rounded mb-2"></div>
-            </div>
-          </div>
+          <SuspenseCard></SuspenseCard>
         ) : (
           currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />

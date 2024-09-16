@@ -1,11 +1,14 @@
 "use client"; // Si estás usando Next.js con el app directory
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useProductStore from "@/store/useProductStore";
 import ListProduct from "@/components/listProduct";
 
 export default function CreateProductForm() {
-  const { createProduct, products } = useProductStore();
+  const { createProduct, products, fetchProducts } = useProductStore();
+  const [lista, setLista] = useState(null);
+
+  // Estado local para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -14,6 +17,7 @@ export default function CreateProductForm() {
   });
   const [error, setError] = useState(null);
 
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,6 +25,7 @@ export default function CreateProductForm() {
     });
   };
 
+  // Función que se ejecuta al enviar el formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProduct = await createProduct(formData);
@@ -30,6 +35,12 @@ export default function CreateProductForm() {
       setError(null); // Limpiar el error si el producto se crea bien
     }
   };
+
+  // useEffect para cargar los productos cuando el componente se monta
+  useEffect(() => {
+    fetchProducts();
+    setLista(true);
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -84,11 +95,13 @@ export default function CreateProductForm() {
       </form>
 
       <h2 className="text-xl font-bold mt-8">Productos Actuales</h2>
-      <ul className="space-y-4">
-        {products.map((product) => (
-          <ListProduct product={product}></ListProduct>
-        ))}
-      </ul>
+      {lista ? (
+        <ul className="space-y-4">
+          {products.map((product) => (
+            <ListProduct product={product}></ListProduct>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }

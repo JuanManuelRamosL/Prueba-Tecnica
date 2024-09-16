@@ -6,7 +6,7 @@ export const Product = sequelize.define("products",{
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true // Agregar autoIncrement
+        autoIncrement: true 
      },
     name: {
         type: DataTypes.STRING,

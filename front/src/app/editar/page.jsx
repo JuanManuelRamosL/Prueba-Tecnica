@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import useProductStore from "@/store/useProductStore";
 import CardEdit from "@/components/cardEdit";
 import Pagination from "@/components/pagination";
+import SuspenseCard from "@/components/suspense";
 
 export default function Editar() {
   const {
@@ -18,12 +19,13 @@ export default function Editar() {
 
   // Estados para la paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  const productsPerPage = 10;
 
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+  }, []);
 
+  //funcion para eliminar producto
   const handleDelete = async (id) => {
     if (confirm("¿Estás seguro de eliminar este producto?")) {
       await deleteProduct(id);
@@ -31,6 +33,7 @@ export default function Editar() {
     }
   };
 
+  //funcion para dirigir a editar producto
   const handleEdit = (id) => {
     router.push(`/editar/${id}`);
     fetchProductById(id);
@@ -62,7 +65,10 @@ export default function Editar() {
       <h1 className="text-2xl font-bold mb-6 text-center">Editar Productos</h1>
       <div className="flex flex-col items-center gap-8 md:gap-6">
         {currentProducts.length === 0 ? (
-          <p>No hay productos disponibles.</p>
+          <>
+            <p>cargando...</p>
+            <SuspenseCard></SuspenseCard>
+          </>
         ) : (
           currentProducts.map((product) => (
             <CardEdit

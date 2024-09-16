@@ -4,7 +4,6 @@ import axios from "axios";
 const useProductStore = create((set,get) => ({
   products: [],
   filteredProducts: [],
-  cart: [],
   selectedProduct: null,
   apoyo:false,
   setApoyo: (value) => set({ apoyo: value }),
@@ -75,28 +74,6 @@ setSearchTerm: (term) => {
   } else {
     set({ filteredProducts: products }); // Si no hay búsqueda, muestra todos los productos
   }
-},
-addToCart: (product) => {
-  const { cart } = get();
-  const isProductInCart = cart.find((item) => item.id === product.id);
-  if (!isProductInCart) {
-    set({ cart: [...cart, { ...product, quantity: 1 }] });
-  } else {
-    set({
-      cart: cart.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      ),
-    });
-  }
-},
-removeFromCart: (id) => {
-  const { cart } = get();
-  set({
-    cart: cart.filter((item) => item.id !== id),
-  });
-},
-clearCart: () => {
-  set({ cart: [] });
 },
 }));
 
