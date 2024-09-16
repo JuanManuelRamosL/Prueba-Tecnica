@@ -16,6 +16,7 @@ export default function CreateProductForm() {
     image: "",
   });
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(""); // Nuevo estado para el mensaje de éxito
 
   // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
@@ -31,8 +32,10 @@ export default function CreateProductForm() {
     const newProduct = await createProduct(formData);
     if (!newProduct) {
       setError("Hubo un problema al crear el producto.");
+      setSuccessMessage(""); // Limpiar el mensaje de éxito si hay error
     } else {
       setError(null); // Limpiar el error si el producto se crea bien
+      setSuccessMessage("¡Se ha creado un producto con éxito!"); // Mostrar el mensaje de éxito
     }
   };
 
@@ -45,7 +48,10 @@ export default function CreateProductForm() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Crear Producto</h1>
+      
       {error && <div className="text-red-500">{error}</div>}
+      {successMessage && <div className="text-green-500">{successMessage}</div>} {/* Mostrar mensaje de éxito */}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium">Nombre</label>
@@ -98,7 +104,7 @@ export default function CreateProductForm() {
       {lista ? (
         <ul className="space-y-4">
           {products.map((product) => (
-            <ListProduct product={product}></ListProduct>
+            <ListProduct key={product.id} product={product}></ListProduct>
           ))}
         </ul>
       ) : null}
