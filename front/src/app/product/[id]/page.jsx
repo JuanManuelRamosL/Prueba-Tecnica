@@ -29,7 +29,7 @@ const ProductDetail = () => {
   const handleDelete = async () => {
     await deleteProduct(id);
     await fetchProducts();
-    router.push("/"); // Redirige al usuario a la página principal después de eliminar el producto
+    router.push("/home"); // Redirige al usuario a la página principal después de eliminar el producto
   };
 
   if (!selectedProduct) {
@@ -38,7 +38,7 @@ const ProductDetail = () => {
 
   return (
     <div className="max-w-[1200px] mx-auto p-4 mt-[80px]">
-      <Link href="/" className="w-min flex">
+      <Link href="/home" className="w-min flex">
         <svg
           width="30px"
           height="100%"
