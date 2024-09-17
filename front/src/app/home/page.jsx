@@ -23,20 +23,25 @@ export default function Home() {
   // Determina si mostrar productos filtrados o todos los productos
   const productsToShow =
     filteredProducts.length > 0 ? filteredProducts : products;
-
+  // Cálculo del índice del último producto a mostrar en la página actual
   const indexOfLastProduct = currentPage * productsPerPage;
+  // Cálculo del índice del primer producto a mostrar en la página actual
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  // Extrae los productos actuales que deben mostrarse en la página actual
   const currentProducts = productsToShow.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
 
+  // Cálculo del número total de páginas según la cantidad de productos
   const totalPages = Math.ceil(productsToShow.length / productsPerPage);
 
+  // Función para avanzar a la siguiente página
   const nextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+  // Función para retroceder a la página anterior
   const prevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };

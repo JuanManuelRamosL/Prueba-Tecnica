@@ -1,16 +1,8 @@
 "use client";
 import Link from "next/link";
-// pages/index.js
-import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function LandingPage() {
-  const router = useRouter();
-
-  const handleRedirect = () => {
-    router.push("/home"); // Redirige a la página '/home'
-  };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-blue-500 p-6">
       <div className="text-center">
