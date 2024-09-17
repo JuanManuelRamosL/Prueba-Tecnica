@@ -38,3 +38,15 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
 
    ..cd server
    npm install
+2. **Condigura el servidor :**
+   dejar el .env con las variables para la configuracion de la base de datos postgre desplegada, o crear una base de datos local postgre v12 o mas y remplazar las variables con tus datos 
+   personales 
+
+3. **Levantar el server**
+   ```bash
+   npm start
+
+4.  **Levantar el Front**
+   ```bash
+   ..cd front
+    npm run dev
