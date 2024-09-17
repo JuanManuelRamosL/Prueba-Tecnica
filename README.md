@@ -42,8 +42,14 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
 3. **Levantar el server**
    ```bash
    npm start
+   ```
 
-4.  **Levantar el Front**
+   **Comando test de los controladores del backend**
+   ```bash
+   npm test
+   ```
+
+5.  **Levantar el Front**
    ```bash
    ..cd front
     npm run dev
