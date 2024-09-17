@@ -33,3 +33,8 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
    ```bash
    git clone https://github.com/tu-usuario/tu-proyecto.git
    cd tu-proyecto
+   cd front
+   npm install
+
+   ..cd server
+   npm install
