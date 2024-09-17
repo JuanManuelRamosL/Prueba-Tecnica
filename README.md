@@ -11,9 +11,6 @@ Este es un proyecto web para gestionar productos, con un front-end construido en
 3. [Levantar el proyecto](#levantar-el-proyecto)
     - [Front-end](#front-end)
     - [Back-end](#back-end)
-4. [Variables de entorno](#variables-de-entorno)
-5. [Estructura del proyecto](#estructura-del-proyecto)
-6. [Comandos útiles](#comandos-útiles)
 
 ---
 
@@ -31,7 +28,7 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
 1. **Clona el repositorio en tu máquina local:**
 
    ```bash
-   git clone https://github.com/tu-usuario/tu-proyecto.git
+   git clone https://github.com/JuanManuelRamosL/Prueba-Tecnica.git
    cd tu-proyecto
    cd front
    npm install
