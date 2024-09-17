@@ -47,3 +47,6 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
    ```bash
    ..cd front
     npm run dev
+```
+Back End corriendo en puerto : http://localhost:3001
+Front End corriendo en puerto : http://localhost:3000
