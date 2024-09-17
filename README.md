@@ -29,7 +29,7 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
 
    ```bash
    git clone https://github.com/JuanManuelRamosL/Prueba-Tecnica.git
-   cd tu-proyecto
+   cd Prueba tecnica
    cd front
    npm install
 
