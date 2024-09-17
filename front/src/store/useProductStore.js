@@ -10,6 +10,7 @@ const useProductStore = create((set,get) => ({
   fetchProducts: async () => {
     try {
       const response = await axios.get('http://localhost:3001/products'); // Cambia esta URL según corresponda
+      console.log("Fetched products:", response.data);
       set({ products: response.data }); // Accede a los datos de la respuesta con `response.data`
     } catch (error) {
       console.error("Error fetching products:", error);

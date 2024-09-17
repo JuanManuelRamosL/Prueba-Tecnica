@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
           <img
             src={product.image}
             alt="Imagen del Producto"
-            className="min-w-[10%] max-w-full min-h-[50%] max-h-[80%]"
+            className="min-w-[10%] max-w-full min-h-[50%] max-h-[70%]"
           />
         </div>
         <div className="w-full flex flex-col items-center p-4">
@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="w-full flex flex-col items-center gap-5 mt-5">
             <div className="w-full flex justify-center">
-              <p className="w-full max-w-md text-center text-lg">
+              <p className="w-full max-w-md text-center text-lg line-clamp-3">
                 {product.description}
               </p>
             </div>

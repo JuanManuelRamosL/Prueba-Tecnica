@@ -1,72 +1,31 @@
 "use client";
+import Link from "next/link";
+// pages/index.js
+import { useRouter } from "next/navigation";
+import React from "react";
 
-import React, { useEffect, useState } from "react";
-import useProductStore from "@/store/useProductStore";
-import ProductCard from "@/components/cardProduct";
-import Pagination from "@/components/pagination";
-import SuspenseCard from "@/components/suspense";
+export default function LandingPage() {
+  const router = useRouter();
 
-export default function Home() {
-  const { products, fetchProducts, filteredProducts, apoyo, setApoyo } =
-    useProductStore();
-  const [currentPage, setCurrentPage] = useState(1);
-  // Definimos cuántos productos mostrar por página
-  const productsPerPage = 10;
-
-  // useEffect para cargar los productos
-  useEffect(() => {
-    if (products.length < 1 || apoyo === true) {
-      fetchProducts();
-      setApoyo(false);
-    }
-  }, [fetchProducts, products]);
-
-  // Determina si mostrar productos filtrados o todos los productos
-  const productsToShow =
-    filteredProducts.length > 0 ? filteredProducts : products;
-
-  // Calcular el índice de los productos que se van a mostrar según la página actual
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productsToShow.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-
-  // Calcular el número total de páginas
-  const totalPages = Math.ceil(productsToShow.length / productsPerPage);
-
-  // Funciones para cambiar de página
-  const nextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  const handleRedirect = () => {
+    router.push("/home"); // Redirige a la página '/home'
   };
 
   return (
-    <div className="p-2 md:p-4">
-      <h1 className="text-2xl font-bold mb-6 text-center">Productos</h1>
-      <div className="flex flex-col items-center gap-8 md:gap-6">
-        {currentProducts.length === 0 ? (
-          <SuspenseCard></SuspenseCard>
-        ) : (
-          currentProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))
-        )}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-blue-500 p-6">
+      <div className="text-center">
+        <h1 className="text-5xl font-bold text-white mb-6">
+          Bienvenido a tu E-Commerce
+        </h1>
+        <p className="text-lg text-white mb-8">
+          Administra tus productos de manera sencilla y eficiente.
+        </p>
+        <Link href="/home">
+          <button className="px-6 py-3 bg-white text-purple-600 rounded-full text-lg font-semibold hover:bg-purple-100 transition">
+            Administrar Productos
+          </button>
+        </Link>
       </div>
-
-      {/* Paginación */}
-      {productsToShow.length > productsPerPage && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          nextPage={nextPage}
-          prevPage={prevPage}
-        />
-      )}
     </div>
   );
 }

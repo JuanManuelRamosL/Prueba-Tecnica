@@ -53,6 +53,7 @@ const EditProductForm = () => {
     const response = await editProduct(id, updatedProduct);
     if (response) {
       setApoyo(true);
+      fetchProducts();
       setIsModalOpen(true); // Mostrar modal de éxito
     } else {
       alert("Error al actualizar el producto");
@@ -159,7 +160,7 @@ const EditProductForm = () => {
               Producto actualizado con éxito
             </h2>
             <button
-              onClick={() => router.push("/")} // Redirige al hacer clic en aceptar
+              onClick={() => router.push("/home")} // Redirige al hacer clic en aceptar
               className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
               Aceptar

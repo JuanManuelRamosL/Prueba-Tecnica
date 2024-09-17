@@ -38,7 +38,7 @@ export default function Nav() {
       >
         <li>
           <Link
-            href="/"
+            href="/home"
             className="flex gap-2 items-center text-white font-bold text-lg hover:text-gray-400 transition-all duration-300 transition-all duration-300"
           >
             <svg

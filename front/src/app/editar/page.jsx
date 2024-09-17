@@ -16,11 +16,9 @@ export default function Editar() {
   } = useProductStore();
   const router = useRouter();
 
-  // Estados para la paginación
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
-  // Estado para controlar el modal de confirmación de eliminación
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
 
@@ -28,29 +26,25 @@ export default function Editar() {
     fetchProducts();
   }, []);
 
-  //funcion para abrir modal de eliminar producto
   const openDeleteModal = (product) => {
     setProductToDelete(product);
     setIsModalOpen(true);
   };
 
-  //funcion para confirmar eliminar producto
   const handleDeleteConfirm = async () => {
     if (productToDelete) {
       await deleteProduct(productToDelete.id);
-      fetchProducts(); // Refrescar los productos después de eliminar
-      setIsModalOpen(false); // Cerrar el modal después de la eliminación
+      fetchProducts();
+      setIsModalOpen(false);
       setProductToDelete(null);
     }
   };
 
-  //funcion para dirigir a editar producto
   const handleEdit = (id) => {
     router.push(`/editar/${id}`);
     fetchProductById(id);
   };
 
-  // Filtrar productos a mostrar por página
   const productsToShow =
     filteredProducts.length > 0 ? filteredProducts : products;
 
@@ -74,10 +68,10 @@ export default function Editar() {
   return (
     <div className="p-2 md:p-4 mt-[60px] bg-white">
       <h1 className="text-2xl font-bold mb-6 text-center">Editar Productos</h1>
-      <div className="flex flex-col items-center gap-8 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {currentProducts.length === 0 ? (
           <>
-            <p>cargando...</p>
+            <p>Cargando...</p>
             <SuspenseCard />
           </>
         ) : (
@@ -86,13 +80,12 @@ export default function Editar() {
               key={product.id}
               product={product}
               handleEdit={handleEdit}
-              handleDelete={() => openDeleteModal(product)} // Abrir el modal en lugar de eliminar directamente
+              handleDelete={() => openDeleteModal(product)}
             />
           ))
         )}
       </div>
 
-      {/* Controles de Paginación */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
@@ -100,7 +93,6 @@ export default function Editar() {
         prevPage={prevPage}
       />
 
-      {/* Modal de confirmación de eliminación */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -110,13 +102,13 @@ export default function Editar() {
             </h2>
             <div className="flex justify-end space-x-4">
               <button
-                onClick={() => setIsModalOpen(false)} // Cerrar modal sin eliminar
+                onClick={() => setIsModalOpen(false)}
                 className="px-4 py-2 bg-gray-300 text-black rounded-lg"
               >
                 Cancelar
               </button>
               <button
-                onClick={handleDeleteConfirm} // Confirmar eliminación
+                onClick={handleDeleteConfirm}
                 className="px-4 py-2 bg-red-500 text-white rounded-lg"
               >
                 Eliminar
