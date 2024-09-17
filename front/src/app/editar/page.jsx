@@ -1,5 +1,4 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import useProductStore from "@/store/useProductStore";
@@ -21,15 +20,27 @@ export default function Editar() {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
+  // Estado para controlar el modal de confirmación de eliminación
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  //funcion para eliminar producto
-  const handleDelete = async (id) => {
-    if (confirm("¿Estás seguro de eliminar este producto?")) {
-      await deleteProduct(id);
+  //funcion para abrir modal de eliminar producto
+  const openDeleteModal = (product) => {
+    setProductToDelete(product);
+    setIsModalOpen(true);
+  };
+
+  //funcion para confirmar eliminar producto
+  const handleDeleteConfirm = async () => {
+    if (productToDelete) {
+      await deleteProduct(productToDelete.id);
       fetchProducts(); // Refrescar los productos después de eliminar
+      setIsModalOpen(false); // Cerrar el modal después de la eliminación
+      setProductToDelete(null);
     }
   };
 
@@ -67,7 +78,7 @@ export default function Editar() {
         {currentProducts.length === 0 ? (
           <>
             <p>cargando...</p>
-            <SuspenseCard></SuspenseCard>
+            <SuspenseCard />
           </>
         ) : (
           currentProducts.map((product) => (
@@ -75,7 +86,7 @@ export default function Editar() {
               key={product.id}
               product={product}
               handleEdit={handleEdit}
-              handleDelete={handleDelete}
+              handleDelete={() => openDeleteModal(product)} // Abrir el modal en lugar de eliminar directamente
             />
           ))
         )}
@@ -88,6 +99,32 @@ export default function Editar() {
         nextPage={nextPage}
         prevPage={prevPage}
       />
+
+      {/* Modal de confirmación de eliminación */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4">
+              ¿Estás seguro de que deseas eliminar el producto{" "}
+              <span className="text-red-500">{productToDelete?.name}</span>?
+            </h2>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setIsModalOpen(false)} // Cerrar modal sin eliminar
+                className="px-4 py-2 bg-gray-300 text-black rounded-lg"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleDeleteConfirm} // Confirmar eliminación
+                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

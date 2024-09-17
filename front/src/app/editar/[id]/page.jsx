@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import useProductStore from "../../../store/useProductStore"; // Importa tu store de Zustand
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+
 const EditProductForm = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -14,6 +15,8 @@ const EditProductForm = () => {
     description: "",
     image: "",
   });
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el modal
+
   // Cargar los productos solo una vez cuando el componente se monta
   useEffect(() => {
     fetchProducts();
@@ -50,8 +53,7 @@ const EditProductForm = () => {
     const response = await editProduct(id, updatedProduct);
     if (response) {
       setApoyo(true);
-      alert("Producto actualizado con éxito");
-      router.push("/");
+      setIsModalOpen(true); // Mostrar modal de éxito
     } else {
       alert("Error al actualizar el producto");
     }
@@ -77,9 +79,8 @@ const EditProductForm = () => {
           />
         </svg>
       </Link>
-      {/* Grid layout con disposición para responsive */}
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Formulario: se muestra primero en mobile */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium">Nombre</label>
@@ -138,9 +139,7 @@ const EditProductForm = () => {
               />
             </div>
             <div className="flex-grow">
-              <h1 className="text-xl font-bold mb-2">
-                {selectedProduct.name}
-              </h1>
+              <h1 className="text-xl font-bold mb-2">{selectedProduct.name}</h1>
               <h1 className="text-gray-700 text-xl font-bold mb-2">
                 Precio: ${selectedProduct.price}
               </h1>
@@ -151,6 +150,23 @@ const EditProductForm = () => {
           </div>
         )}
       </div>
+
+      {/* Modal de éxito */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4">
+              Producto actualizado con éxito
+            </h2>
+            <button
+              onClick={() => router.push("/")} // Redirige al hacer clic en aceptar
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

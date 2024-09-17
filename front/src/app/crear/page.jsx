@@ -48,9 +48,17 @@ export default function CreateProductForm() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Crear Producto</h1>
-      
+
       {error && <div className="text-red-500">{error}</div>}
-      {successMessage && <div className="text-green-500">{successMessage}</div>} {/* Mostrar mensaje de éxito */}
+      {successMessage && (
+        <div
+          className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <span className="block sm:inline">{successMessage}</span>
+        </div>
+      )}
+      {/* Mostrar mensaje de éxito */}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
