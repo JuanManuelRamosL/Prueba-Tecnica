@@ -29,18 +29,19 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
 
    ```bash
    git clone https://github.com/JuanManuelRamosL/Prueba-Tecnica.git
-   cd Prueba tecnica
+   cd Prueba-Tecnica
    cd front
    npm install
 
-   ..cd server
+   cd server
    npm install
 2. **Condigura el servidor :**
    dejar el .env con las variables para la configuracion de la base de datos postgre desplegada, o crear una base de datos local postgre v12 o mas y remplazar las variables con tus datos 
    personales 
 
-3. **Levantar el server**
+3. **Levantar el server /server**
    ```bash
+   cd server
    npm start
    ```
 
@@ -49,9 +50,9 @@ Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
    npm test
    ```
 
-5.  **Levantar el Front**
+5.  **Levantar el Front /front**
    ```bash
-   ..cd front
+    cd front
     npm run dev
 ```
 Back End corriendo en puerto : http://localhost:3001
